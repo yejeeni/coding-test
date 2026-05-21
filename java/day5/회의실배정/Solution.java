@@ -20,7 +20,7 @@ public class Solution {
       times[i][1] = Integer.parseInt(st.nextToken());
     }
 
-    // 끝시간 기준 오름차순 정렬
+    // 시작시간 기준 오름차순 정렬
     Arrays.sort(times, (a, b) ->{
       if (a[1] != b[1]) {
         return a[1] - b[1];
