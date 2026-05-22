@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', sans-serif; background: transparent; margin: 0; padding: 14px; color: var(--text-primary, #1a1a1a); font-size: 13px; }
+
+  .top-row { display: flex; gap: 12px; margin-bottom: 12px; }
+
+  .code-panel { flex: 1; background: #1e1e2e; border-radius: 10px; padding: 14px 16px; }
+  .code-title { color: #cdd6f4; font-size: 11px; margin-bottom: 10px; opacity: 0.6; font-family: monospace; }
+  .code-line { font-family: 'Fira Code', monospace; font-size: 12.5px; line-height: 2.0; padding: 0 8px; border-radius: 4px; color: #cdd6f4; white-space: pre; transition: background 0.2s; }
+  .code-line.hl { background: #f38ba8; color: #1e1e2e; font-weight: 700; }
+  .ln { display: inline-block; width: 20px; color: #585b70; font-size: 11px; user-select: none; margin-right: 8px; }
+  .kw { color: #cba6f7; }
+  .fn { color: #89b4fa; }
+  .cm { color: #6c7086; font-style: italic; }
+
+  .right-col { display: flex; flex-direction: column; gap: 10px; min-width: 200px; }
+
+  .array-panel { background: var(--surface-secondary, #f8fafc); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border, #e2e8f0); }
+  .panel-title { font-size: 11px; color: var(--text-secondary, #888); margin-bottom: 8px; font-weight: 600; }
+  .arr-row { display: flex; gap: 5px; align-items: center; margin-bottom: 4px; }
+  .arr-lbl { font-size: 11px; color: var(--text-secondary, #999); width: 52px; }
+  .cell { width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; transition: all 0.25s; }
+  .ci { background: none; color: #aaa; font-size: 11px; height: 18px; }
+  .cn { background: #e0e7ff; color: #4338ca; }
+  .ca { background: #6366f1; color: white; }
+  .cc { background: #22c55e; color: white; }
+  .cr { background: #f59e0b; color: white; }
+
+  .vars-panel { background: var(--surface-secondary, #f8fafc); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border, #e2e8f0); }
+  .var-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-size: 12px; }
+  .var-name { font-family: monospace; color: #6366f1; font-weight: 700; }
+  .var-val { font-family: monospace; font-weight: 700; color: var(--text-primary, #1a1a1a); background: #e0e7ff; padding: 2px 8px; border-radius: 4px; }
+  .var-val.unknown { color: #aaa; background: var(--surface-secondary, #f1f5f9); }
+  .var-val.hot { background: #22c55e; color: white; }
+
+  .call-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .badge-1 { background: #e0e7ff; color: #4338ca; }
+  .badge-2 { background: #fce7f3; color: #be185d; }
+  .badge-3 { background: #dcfce7; color: #15803d; }
+
+  .explain { padding: 10px 14px; border-radius: 8px; background: #fef9c3; border-left: 4px solid #f59e0b; font-size: 13px; margin-bottom: 10px; min-height: 38px; line-height: 1.5; }
+  .controls { display: flex; gap: 8px; align-items: center; }
+  button { padding: 7px 18px; border-radius: 7px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .bn { background: #6366f1; color: white; }
+  .bn:hover { background: #4f46e5; }
+  .br { background: var(--surface-secondary, #f1f5f9); color: var(--text-primary, #333); }
+  .sl { font-size: 12px; color: var(--text-secondary, #888); }
+</style>
+</head>
+<body>
+
+<div class="top-row">
+  <div class="code-panel">
+    <div class="code-title">// union() 메서드</div>
+    <div class="code-line" id="l1"><span class="ln">1</span><span class="kw">static void</span> <span class="fn">union</span>(<span class="kw">int</span>[] parent, <span class="kw">int</span> a, <span class="kw">int</span> b) {</div>
+    <div class="code-line" id="l2"><span class="ln">2</span>  <span class="kw">int</span> rootA = <span class="fn">find</span>(parent, a);    <span class="cm">// a의 루트</span></div>
+    <div class="code-line" id="l3"><span class="ln">3</span>  <span class="kw">int</span> rootB = <span class="fn">find</span>(parent, b);    <span class="cm">// b의 루트</span></div>
+    <div class="code-line" id="l4"><span class="ln">4</span>  <span class="kw">if</span> (rootA != rootB) {           <span class="cm">// 다른 집합이면</span></div>
+    <div class="code-line" id="l5"><span class="ln">5</span>    parent[rootA] = rootB;        <span class="cm">// 합치기</span></div>
+    <div class="code-line" id="l6"><span class="ln">6</span>  }</div>
+    <div class="code-line" id="l7"><span class="ln">7</span>}</div>
+    <br/>
+    <div class="code-title" style="margin-top:4px;">// find() (내부적으로 호출됨)</div>
+    <div class="code-line" id="l8"><span class="ln">8</span><span class="kw">static int</span> <span class="fn">find</span>(<span class="kw">int</span>[] parent, <span class="kw">int</span> x) {</div>
+    <div class="code-line" id="l9"><span class="ln">9</span>  <span class="kw">if</span> (parent[x] != x)</div>
+    <div class="code-line" id="l10"><span class="ln">10</span>    parent[x] = <span class="fn">find</span>(parent, parent[x]);</div>
+    <div class="code-line" id="l11"><span class="ln">11</span>  <span class="kw">return</span> parent[x];</div>
+    <div class="code-line" id="l12"><span class="ln">12</span>}</div>
+  </div>
+
+  <div class="right-col">
+    <div class="array-panel">
+      <div class="panel-title">parent[] 배열</div>
+      <div class="arr-row">
+        <div class="arr-lbl">인덱스</div>
+        <div class="cell ci">1</div><div class="cell ci">2</div>
+        <div class="cell ci">3</div><div class="cell ci">4</div>
+      </div>
+      <div class="arr-row">
+        <div class="arr-lbl">parent[]</div>
+        <div class="cell cn" id="p1">1</div>
+        <div class="cell cn" id="p2">2</div>
+        <div class="cell cn" id="p3">3</div>
+        <div class="cell cr" id="p4">4</div>
+      </div>
+      <div style="font-size:10px;color:#aaa;margin-top:6px;">🟡루트 &nbsp;🟣탐색 &nbsp;🟢변경됨</div>
+    </div>
+
+    <div class="vars-panel">
+      <div class="panel-title">지역 변수</div>
+      <div id="badge" class="call-badge badge-1">union(1, 2) 호출</div>
+      <div class="var-row"><span class="var-name">a</span><span class="var-val" id="va">1</span></div>
+      <div class="var-row"><span class="var-name">b</span><span class="var-val" id="vb">2</span></div>
+      <div class="var-row"><span class="var-name">rootA</span><span class="var-val unknown" id="vra">?</span></div>
+      <div class="var-row"><span class="var-name">rootB</span><span class="var-val unknown" id="vrb">?</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="explain" id="explain">▶ 버튼을 눌러 union(1,2) → union(2,3) → union(3,4) 순서로 따라가보세요.</div>
+<div class="controls">
+  <button class="bn" onclick="next()">다음 ▶</button>
+  <button class="br" onclick="reset()">처음부터</button>
+  <span class="sl" id="sl">0 / 0</span>
+</div>
+
+<script>
+const steps = [
+  // ── union(1,2) ──
+  {
+    lines:[2], parent:[1,2,3,4], changed:[], active:[1],
+    badge:1, a:1, b:2, ra:'?', rb:'?',
+    explain:"union(1,2) 시작. 2번 라인: find(parent, 1) 호출 → parent[1]=1이고 1==1이므로 바로 1 반환. rootA = 1"
+  },
+  {
+    lines:[3], parent:[1,2,3,4], changed:[], active:[2],
+    badge:1, a:1, b:2, ra:'1', rb:'?',
+    explain:"3번 라인: find(parent, 2) 호출 → parent[2]=2이고 2==2이므로 바로 2 반환. rootB = 2"
+  },
+  {
+    lines:[4], parent:[1,2,3,4], changed:[], active:[1,2],
+    badge:1, a:1, b:2, ra:'1', rb:'2',
+    explain:"4번 라인: rootA(1) != rootB(2) → TRUE. if 블록 실행!"
+  },
+  {
+    lines:[5], parent:[2,2,3,4], changed:[1], active:[],
+    badge:1, a:1, b:2, ra:'1', rb:'2',
+    explain:"⭐ 5번 라인: parent[rootA] = rootB → parent[1] = 2. 1번 노드가 2번 노드 아래로 들어갔어요!"
+  },
+  // ── union(2,3) ──
+  {
+    lines:[2], parent:[2,2,3,4], changed:[], active:[2],
+    badge:2, a:2, b:3, ra:'?', rb:'?',
+    explain:"union(2,3) 시작. 2번 라인: find(parent, 2) 호출 → parent[2]=2이고 2==2이므로 2 반환. rootA = 2"
+  },
+  {
+    lines:[3], parent:[2,2,3,4], changed:[], active:[3],
+    badge:2, a:2, b:3, ra:'2', rb:'?',
+    explain:"3번 라인: find(parent, 3) 호출 → parent[3]=3이고 3==3이므로 3 반환. rootB = 3"
+  },
+  {
+    lines:[4], parent:[2,2,3,4], changed:[], active:[2,3],
+    badge:2, a:2, b:3, ra:'2', rb:'3',
+    explain:"4번 라인: rootA(2) != rootB(3) → TRUE. if 블록 실행!"
+  },
+  {
+    lines:[5], parent:[2,3,3,4], changed:[2], active:[],
+    badge:2, a:2, b:3, ra:'2', rb:'3',
+    explain:"⭐ 5번 라인: parent[rootA] = rootB → parent[2] = 3. 이제 1→2→3 체인이 완성됐어요!"
+  },
+  // ── union(3,4) ──
+  {
+    lines:[2], parent:[2,3,3,4], changed:[], active:[3],
+    badge:3, a:3, b:4, ra:'?', rb:'?',
+    explain:"union(3,4) 시작. 2번 라인: find(parent, 3) 호출 → parent[3]=3이고 3==3이므로 3 반환. rootA = 3"
+  },
+  {
+    lines:[3], parent:[2,3,3,4], changed:[], active:[4],
+    badge:3, a:3, b:4, ra:'3', rb:'?',
+    explain:"3번 라인: find(parent, 4) 호출 → parent[4]=4이고 4==4이므로 4 반환. rootB = 4"
+  },
+  {
+    lines:[4], parent:[2,3,3,4], changed:[], active:[3,4],
+    badge:3, a:3, b:4, ra:'3', rb:'4',
+    explain:"4번 라인: rootA(3) != rootB(4) → TRUE. if 블록 실행!"
+  },
+  {
+    lines:[5], parent:[2,3,4,4], changed:[3], active:[],
+    badge:3, a:3, b:4, ra:'3', rb:'4',
+    explain:"⭐ 5번 라인: parent[rootA] = rootB → parent[3] = 4. 이제 1→2→3→4 체인 완성! find() 시각화에서 봤던 그 상태예요."
+  },
+];
+
+let cur = -1;
+document.getElementById('sl').textContent = '0 / ' + steps.length;
+
+function next() {
+  if (cur >= steps.length-1) return;
+  cur++;
+  render();
+}
+
+function reset() {
+  cur = -1;
+  document.getElementById('explain').textContent = '▶ 버튼을 눌러 union(1,2) → union(2,3) → union(3,4) 순서로 따라가보세요.';
+  document.getElementById('sl').textContent = '0 / ' + steps.length;
+  for (let i=1;i<=12;i++) { const el=document.getElementById('l'+i); if(el) el.className='code-line'; }
+  for (let i=1;i<=4;i++) {
+    const el=document.getElementById('p'+i);
+    el.textContent=i; el.className=i===4?'cell cr':'cell cn';
+  }
+  setVars({badge:1,a:1,b:2,ra:'?',rb:'?'});
+}
+
+function setVars(s) {
+  const badges=['','badge-1','badge-2','badge-3'];
+  const labels=['','union(1, 2) 호출','union(2, 3) 호출','union(3, 4) 호출'];
+  const b=document.getElementById('badge');
+  b.className='call-badge '+badges[s.badge];
+  b.textContent=labels[s.badge];
+  document.getElementById('va').textContent=s.a;
+  document.getElementById('vb').textContent=s.b;
+  const ra=document.getElementById('vra');
+  ra.textContent=s.ra; ra.className='var-val'+(s.ra==='?'?' unknown':' hot');
+  const rb=document.getElementById('vrb');
+  rb.textContent=s.rb; rb.className='var-val'+(s.rb==='?'?' unknown':' hot');
+}
+
+function render() {
+  const s=steps[cur];
+  document.getElementById('sl').textContent=(cur+1)+' / '+steps.length;
+  document.getElementById('explain').textContent=s.explain;
+
+  for (let i=1;i<=12;i++) { const el=document.getElementById('l'+i); if(el) el.className='code-line'+(s.lines.includes(i)?' hl':''); }
+
+  for (let i=1;i<=4;i++) {
+    const el=document.getElementById('p'+i);
+    el.textContent=s.parent[i-1];
+    if (s.changed&&s.changed.includes(i)) el.className='cell cc';
+    else if (s.active&&s.active.includes(i)) el.className='cell ca';
+    else if (s.parent[i-1]===i&&i===4) el.className='cell cr';
+    else if (s.parent[i-1]===i) el.className='cell cr';
+    else el.className='cell cn';
+  }
+  setVars(s);
+}
+</script>
+</body>
+</html>

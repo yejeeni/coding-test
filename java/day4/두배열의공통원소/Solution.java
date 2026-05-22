@@ -1,4 +1,4 @@
-package day4.question1;
+package day4.두배열의공통원소;
 
 import java.io.*;
 import java.util.*;

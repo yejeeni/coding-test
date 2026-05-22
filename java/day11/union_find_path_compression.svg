@@ -1,0 +1,102 @@
+<svg viewBox="0 0 690 430" xmlns="http://www.w3.org/2000/svg" role="img" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Union-Find 경로 압축 시각화</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">find(1) 호출 전후 트리 구조 변화를 보여주는 다이어그램</desc>
+
+  
+
+  <!-- Background -->
+  <rect width="680" height="420" fill="var(--background, #fff)" rx="12" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- ── BEFORE (Left) ── -->
+  <text x="170" y="32" text-anchor="middle" style="fill:rgb(26, 26, 26);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:15px;font-weight:700;text-anchor:middle;dominant-baseline:auto">find(1) 호출 전</text>
+  <text x="170" y="50" text-anchor="middle" style="fill:rgb(102, 102, 102);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:13px;font-weight:400;text-anchor:middle;dominant-baseline:auto">parent = [_, 2, 3, 4, 4]</text>
+
+  <!-- Nodes: 4(root) → 3 → 2 → 1 (top to bottom) -->
+  <!-- Node 4 (root) -->
+  <circle cx="170" cy="90" r="22" fill="#6366f1" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="170" y="95" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">4</text>
+  <text x="170" y="74" text-anchor="middle" style="fill:rgb(136, 136, 136);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:11px;font-weight:400;text-anchor:middle;dominant-baseline:auto">root</text>
+
+  <!-- Arrow 4→3 -->
+  <line x1="170" y1="112" x2="170" y2="148" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arr)" style="fill:rgb(0, 0, 0);stroke:rgb(203, 213, 225);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Node 3 -->
+  <circle cx="170" cy="170" r="22" fill="#6366f1" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="170" y="175" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">3</text>
+
+  <!-- Arrow 3→2 -->
+  <line x1="170" y1="192" x2="170" y2="228" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arr)" style="fill:rgb(0, 0, 0);stroke:rgb(203, 213, 225);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Node 2 -->
+  <circle cx="170" cy="250" r="22" fill="#6366f1" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="170" y="255" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">2</text>
+
+  <!-- Arrow 2→1 -->
+  <line x1="170" y1="272" x2="170" y2="308" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arr)" style="fill:rgb(0, 0, 0);stroke:rgb(203, 213, 225);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Node 1 (target) -->
+  <circle cx="170" cy="330" r="22" fill="#ef4444" style="fill:rgb(239, 68, 68);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="170" y="335" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">1</text>
+  <text x="170" y="368" text-anchor="middle" fill="#ef4444" style="fill:rgb(136, 136, 136);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:11px;font-weight:400;text-anchor:middle;dominant-baseline:auto">find(1) 호출</text>
+
+  <!-- step count -->
+  <text x="170" y="395" text-anchor="middle" style="fill:rgb(102, 102, 102);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:13px;font-weight:400;text-anchor:middle;dominant-baseline:auto">4단계 올라가야 함</text>
+
+  <!-- ── ARROW IN MIDDLE ── -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#cbd5e1"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <!-- Middle arrow -->
+  <line x1="310" y1="210" x2="370" y2="210" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr-green)" style="fill:rgb(0, 0, 0);stroke:rgb(148, 163, 184);color:rgb(0, 0, 0);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="340" y="200" text-anchor="middle" style="font-size:11px;fill:#22c55e;font-weight:700;;fill:rgb(34, 197, 94);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:11px;font-weight:700;text-anchor:middle;dominant-baseline:auto">경로 압축!</text>
+
+  <!-- Code in middle -->
+  <rect x="295" y="225" width="90" height="34" rx="6" fill="var(--surface-secondary, #f1f5f9)" style="fill:rgb(241, 245, 249);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="340" y="238" text-anchor="middle" style="fill:rgb(26, 26, 26);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">parent[x] =</text>
+  <text x="340" y="252" text-anchor="middle" style="fill:rgb(26, 26, 26);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">find(parent[x])</text>
+
+  <!-- ── AFTER (Right) ── -->
+  <text x="510" y="32" text-anchor="middle" style="fill:rgb(26, 26, 26);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:15px;font-weight:700;text-anchor:middle;dominant-baseline:auto">find(1) 호출 후</text>
+  <text x="510" y="50" text-anchor="middle" style="fill:rgb(102, 102, 102);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:13px;font-weight:400;text-anchor:middle;dominant-baseline:auto">parent = [_, 4, 4, 4, 4]</text>
+
+  <!-- Node 4 (root) -->
+  <circle cx="510" cy="110" r="22" fill="#6366f1" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="510" y="115" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">4</text>
+  <text x="510" y="94" text-anchor="middle" style="fill:rgb(136, 136, 136);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:11px;font-weight:400;text-anchor:middle;dominant-baseline:auto">root</text>
+
+  <!-- Arrows from 4 to 1, 2, 3 -->
+  <!-- to 3 -->
+  <line x1="490" y1="130" x2="430" y2="228" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)" style="fill:rgb(0, 0, 0);stroke:rgb(34, 197, 94);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- to 2 -->
+  <line x1="510" y1="132" x2="510" y2="228" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)" style="fill:rgb(0, 0, 0);stroke:rgb(34, 197, 94);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- to 1 -->
+  <line x1="530" y1="130" x2="590" y2="228" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)" style="fill:rgb(0, 0, 0);stroke:rgb(34, 197, 94);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Node 3 -->
+  <circle cx="430" cy="250" r="22" fill="#6366f1" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="430" y="255" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">3</text>
+
+  <!-- Node 2 -->
+  <circle cx="510" cy="250" r="22" fill="#6366f1" style="fill:rgb(99, 102, 241);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="510" y="255" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">2</text>
+
+  <!-- Node 1 (highlighted) -->
+  <circle cx="590" cy="250" r="22" fill="#ef4444" style="fill:rgb(239, 68, 68);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="590" y="255" text-anchor="middle" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:14px;font-weight:700;text-anchor:middle;dominant-baseline:auto">1</text>
+
+  <!-- step count -->
+  <text x="510" y="295" text-anchor="middle" style="fill:rgb(102, 102, 102);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:13px;font-weight:400;text-anchor:middle;dominant-baseline:auto">이제 1단계만!</text>
+  <text x="510" y="315" text-anchor="middle" style="fill:rgb(102, 102, 102);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Pretendard, &quot;Apple SD Gothic Neo&quot;, sans-serif;font-size:13px;font-weight:400;text-anchor:middle;dominant-baseline:auto">1, 2, 3 모두 루트(4)를 바로 앎</text>
+
+  <!-- Legend -->
+  <rect x="20" y="400" width="640" height="1" fill="var(--border, #e2e8f0)" style="fill:rgb(226, 232, 240);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+</svg>

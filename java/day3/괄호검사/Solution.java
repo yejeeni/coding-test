@@ -1,4 +1,4 @@
-package day3.question1;
+package day3.괄호검사;
 
 import java.io.*;
 import java.util.*;

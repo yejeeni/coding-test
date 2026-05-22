@@ -1,4 +1,4 @@
-package day3.question2;
+package day3.요세푸스순열;
 
 import java.io.BufferedReader;
 import java.io.IOException;

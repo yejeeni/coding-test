@@ -1,4 +1,4 @@
-package day4.question3;
+package day4.실시간중앙값;
 
 import java.io.BufferedReader;
 import java.io.IOException;

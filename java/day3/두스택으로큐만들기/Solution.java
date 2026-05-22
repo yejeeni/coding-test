@@ -1,4 +1,4 @@
-package day3.question3;
+package day3.두스택으로큐만들기;
 
 import java.io.BufferedReader;
 import java.io.IOException;

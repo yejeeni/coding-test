@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', sans-serif; background: transparent; margin: 0; padding: 14px; color: var(--text-primary, #1a1a1a); font-size: 13px; }
+
+  .top-row { display: flex; gap: 12px; margin-bottom: 12px; }
+
+  /* CODE PANEL */
+  .code-panel { flex: 1; background: #1e1e2e; border-radius: 10px; padding: 14px 16px; }
+  .code-title { color: #cdd6f4; font-size: 11px; margin-bottom: 10px; opacity: 0.6; font-family: monospace; }
+  .code-line { font-family: 'Fira Code', monospace; font-size: 12.5px; line-height: 1.9; padding: 0 8px; border-radius: 4px; color: #cdd6f4; white-space: pre; transition: background 0.2s; }
+  .code-line.active { background: #313244; color: #fff; }
+  .code-line.highlight { background: #f38ba8; color: #1e1e2e; font-weight: 700; }
+  .code-line .ln { display: inline-block; width: 20px; color: #585b70; font-size: 11px; user-select: none; margin-right: 8px; }
+  .kw { color: #cba6f7; }
+  .fn { color: #89b4fa; }
+  .num { color: #fab387; }
+  .cm { color: #6c7086; font-style: italic; }
+  .op { color: #89dceb; }
+
+  /* PARENT ARRAY */
+  .array-panel { background: var(--surface-secondary, #f8fafc); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border, #e2e8f0); min-width: 190px; }
+  .panel-title { font-size: 11px; color: var(--text-secondary, #888); margin-bottom: 8px; font-weight: 600; }
+  .arr-row { display: flex; gap: 5px; margin-bottom: 4px; align-items: center; }
+  .arr-lbl { font-size: 11px; color: var(--text-secondary, #999); width: 52px; }
+  .cell { width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; transition: all 0.25s; }
+  .ci { background: none; color: var(--text-secondary, #aaa); font-size: 11px; height: 18px; }
+  .cn { background: #e0e7ff; color: #4338ca; }
+  .ca { background: #6366f1; color: white; }
+  .cc { background: #22c55e; color: white; }
+  .cr { background: #f59e0b; color: white; }
+
+  /* CALL STACK */
+  .stack-panel { background: var(--surface-secondary, #f8fafc); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border, #e2e8f0); margin-bottom: 10px; }
+  .stack-list { display: flex; flex-direction: column-reverse; gap: 5px; }
+  .frame { padding: 6px 12px; border-radius: 6px; border-left: 3px solid #6366f1; background: var(--background, #fff); font-size: 12px; transition: all 0.25s; }
+  .frame.ret { border-left-color: #22c55e; background: #f0fdf4; }
+  .frame.dim { opacity: 0.35; }
+  .frame-fn { font-weight: 700; color: #4338ca; }
+  .frame-line { color: var(--text-secondary, #666); font-size: 11px; margin-top: 1px; }
+  .frame-rv { color: #16a34a; font-weight: 700; font-size: 11px; }
+
+  /* EXPLAIN */
+  .explain { padding: 10px 14px; border-radius: 8px; background: #fef9c3; border-left: 4px solid #f59e0b; font-size: 13px; margin-bottom: 10px; min-height: 38px; line-height: 1.5; }
+
+  /* CONTROLS */
+  .controls { display: flex; gap: 8px; align-items: center; }
+  button { padding: 7px 18px; border-radius: 7px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .bn { background: #6366f1; color: white; }
+  .bn:hover { background: #4f46e5; }
+  .br { background: var(--surface-secondary, #f1f5f9); color: var(--text-primary, #333); }
+  .sl { font-size: 12px; color: var(--text-secondary, #888); }
+</style>
+</head>
+<body>
+
+<div class="top-row">
+  <!-- CODE -->
+  <div class="code-panel">
+    <div class="code-title">// find() 메서드</div>
+    <div class="code-line" id="l1"><span class="ln">1</span><span class="kw">static int</span> <span class="fn">find</span>(<span class="kw">int</span>[] parent, <span class="kw">int</span> x) {</div>
+    <div class="code-line" id="l2"><span class="ln">2</span>  <span class="kw">if</span> (parent[x] != x) {</div>
+    <div class="code-line" id="l3"><span class="ln">3</span>    parent[x] = <span class="fn">find</span>(parent, parent[x]);</div>
+    <div class="code-line" id="l4"><span class="ln">4</span>  }</div>
+    <div class="code-line" id="l5"><span class="ln">5</span>  <span class="kw">return</span> parent[x];  <span class="cm">// 루트 반환</span></div>
+    <div class="code-line" id="l6"><span class="ln">6</span>}</div>
+  </div>
+
+  <!-- PARENT ARRAY -->
+  <div class="array-panel">
+    <div class="panel-title">parent[] 배열 상태</div>
+    <div class="arr-row">
+      <div class="arr-lbl">인덱스</div>
+      <div class="cell ci">1</div><div class="cell ci">2</div>
+      <div class="cell ci">3</div><div class="cell ci">4</div>
+    </div>
+    <div class="arr-row">
+      <div class="arr-lbl">parent[]</div>
+      <div class="cell cn" id="p1">2</div>
+      <div class="cell cn" id="p2">3</div>
+      <div class="cell cn" id="p3">4</div>
+      <div class="cell cr" id="p4">4</div>
+    </div>
+    <div style="font-size:11px;color:#aaa;margin-top:8px;">🟡 루트 &nbsp; 🟣 탐색 중 &nbsp; 🟢 압축됨</div>
+  </div>
+</div>
+
+<!-- CALL STACK -->
+<div class="stack-panel">
+  <div class="panel-title">📞 호출 스택</div>
+  <div class="stack-list" id="stack"><div style="color:#aaa;font-size:12px;">아직 호출 없음</div></div>
+</div>
+
+<!-- EXPLAIN -->
+<div class="explain" id="explain">▶ 버튼을 눌러 find(1) 재귀 호출을 라인별로 따라가보세요.</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="bn" onclick="next()">다음 ▶</button>
+  <button class="br" onclick="reset()">처음부터</button>
+  <span class="sl" id="sl">0 / 0</span>
+</div>
+
+<script>
+// Each step: { line: which line to highlight, parent: array state, changed: [], stack: [], explain }
+const steps = [
+  // find(1) starts — check line 2
+  {
+    line: 2,
+    parent: [2,3,4,4], changed: [], active: [1],
+    stack: [{ fn:"find(x=1)", ln:"2번 라인 실행 중", rv:null, ret:false }],
+    explain: "find(1) 호출됨. 2번 라인: parent[1]=2, x=1 → 2≠1이므로 if 조건 TRUE. 재귀 들어갑니다."
+  },
+  // find(1) calls find(2) — line 3
+  {
+    line: 3,
+    parent: [2,3,4,4], changed: [], active: [1,2],
+    stack: [
+      { fn:"find(x=1)", ln:"3번 라인: find(2) 호출 후 대기", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"2번 라인 실행 중", rv:null, ret:false }
+    ],
+    explain: "3번 라인: parent[1] = find(parent, 2) 실행 → find(2) 호출. 스택에 find(1)이 대기하고 find(2) 시작."
+  },
+  // find(2) — check line 2
+  {
+    line: 2,
+    parent: [2,3,4,4], changed: [], active: [2],
+    stack: [
+      { fn:"find(x=1)", ln:"3번 라인: 대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"2번 라인 실행 중", rv:null, ret:false }
+    ],
+    explain: "find(2): 2번 라인 → parent[2]=3, x=2 → 3≠2이므로 if 조건 TRUE. 또 재귀!"
+  },
+  // find(2) calls find(3) — line 3
+  {
+    line: 3,
+    parent: [2,3,4,4], changed: [], active: [2,3],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"3번 라인: find(3) 호출 후 대기", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"2번 라인 실행 중", rv:null, ret:false }
+    ],
+    explain: "3번 라인: parent[2] = find(parent, 3) → find(3) 호출. 스택에 find(2)도 대기."
+  },
+  // find(3) — check line 2
+  {
+    line: 2,
+    parent: [2,3,4,4], changed: [], active: [3],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"2번 라인 실행 중", rv:null, ret:false }
+    ],
+    explain: "find(3): 2번 라인 → parent[3]=4, x=3 → 4≠3이므로 if 조건 TRUE. 또 재귀!"
+  },
+  // find(3) calls find(4) — line 3
+  {
+    line: 3,
+    parent: [2,3,4,4], changed: [], active: [3,4],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"3번 라인: find(4) 호출 후 대기", rv:null, ret:false },
+      { fn:"find(x=4)", ln:"2번 라인 실행 중", rv:null, ret:false }
+    ],
+    explain: "3번 라인: parent[3] = find(parent, 4) → find(4) 호출."
+  },
+  // find(4) — line 2: condition FALSE
+  {
+    line: 2,
+    parent: [2,3,4,4], changed: [], active: [4],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=4)", ln:"2번 라인 실행 중", rv:null, ret:false }
+    ],
+    explain: "find(4): 2번 라인 → parent[4]=4, x=4 → 4==4이므로 if 조건 FALSE. if 블록 건너뜀!"
+  },
+  // find(4) — line 5: return 4
+  {
+    line: 5,
+    parent: [2,3,4,4], changed: [], active: [4],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=4)", ln:"5번 라인: return parent[4]", rv:"return 4 ✅", ret:true }
+    ],
+    explain: "5번 라인: return parent[4] → return 4. 루트를 찾았어요! 이제 거슬러 올라갑니다."
+  },
+  // find(3) resumes — line 3 completes: parent[3] = 4
+  {
+    line: 3,
+    parent: [2,3,4,4], changed: [3], active: [3],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"3번 라인: parent[3] = 4 세팅", rv:null, ret:false },
+      { fn:"find(x=4)", ln:"완료", rv:"반환값: 4", ret:true }
+    ],
+    explain: "find(4)가 4를 반환 → find(3)의 3번 라인: parent[3] = 4. (원래 4였으니 변화 없음)"
+  },
+  // find(3) — line 5: return 4
+  {
+    line: 5,
+    parent: [2,3,4,4], changed: [3], active: [3],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"5번 라인: return parent[3]", rv:"return 4 ✅", ret:true },
+      { fn:"find(x=4)", ln:"완료", rv:"반환값: 4", ret:true }
+    ],
+    explain: "5번 라인: return parent[3] → return 4. find(3) 완료!"
+  },
+  // find(2) resumes — line 3: parent[2] = 4 (PATH COMPRESSION!)
+  {
+    line: 3,
+    parent: [2,4,4,4], changed: [2,3], active: [2],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"3번 라인: parent[2] = 4 압축!", rv:null, ret:false },
+      { fn:"find(x=3)", ln:"완료", rv:"반환값: 4", ret:true },
+      { fn:"find(x=4)", ln:"완료", rv:"반환값: 4", ret:true }
+    ],
+    explain: "⭐ 경로 압축! find(3)이 4 반환 → parent[2] = 4. 원래 parent[2]=3이었는데 루트(4)로 바로 연결!"
+  },
+  // find(2) — line 5: return 4
+  {
+    line: 5,
+    parent: [2,4,4,4], changed: [2,3], active: [2],
+    stack: [
+      { fn:"find(x=1)", ln:"대기 중...", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"5번 라인: return parent[2]", rv:"return 4 ✅", ret:true },
+      { fn:"find(x=3)", ln:"완료", rv:"반환값: 4", ret:true },
+      { fn:"find(x=4)", ln:"완료", rv:"반환값: 4", ret:true }
+    ],
+    explain: "5번 라인: return parent[2] → return 4. find(2) 완료!"
+  },
+  // find(1) resumes — line 3: parent[1] = 4 (PATH COMPRESSION!)
+  {
+    line: 3,
+    parent: [4,4,4,4], changed: [1,2,3], active: [1],
+    stack: [
+      { fn:"find(x=1)", ln:"3번 라인: parent[1] = 4 압축!", rv:null, ret:false },
+      { fn:"find(x=2)", ln:"완료", rv:"반환값: 4", ret:true },
+      { fn:"find(x=3)", ln:"완료", rv:"반환값: 4", ret:true },
+      { fn:"find(x=4)", ln:"완료", rv:"반환값: 4", ret:true }
+    ],
+    explain: "⭐ 경로 압축! find(2)가 4 반환 → parent[1] = 4. 원래 parent[1]=2였는데 루트(4)로 바로 연결!"
+  },
+  // find(1) — line 5: return 4 — DONE
+  {
+    line: 5,
+    parent: [4,4,4,4], changed: [1,2,3], active: [1],
+    stack: [
+      { fn:"find(x=1)", ln:"5번 라인: return parent[1]", rv:"return 4 ✅ 완료!", ret:true },
+      { fn:"find(x=2)", ln:"완료", rv:"반환값: 4", ret:true },
+      { fn:"find(x=3)", ln:"완료", rv:"반환값: 4", ret:true },
+      { fn:"find(x=4)", ln:"완료", rv:"반환값: 4", ret:true }
+    ],
+    explain: "🎉 find(1) 최종 반환: 4. 이제 parent[1]=4, parent[2]=4, parent[3]=4 — 모두 루트를 직접 가리킴!"
+  }
+];
+
+let cur = -1;
+
+function next() {
+  if (cur >= steps.length - 1) return;
+  cur++;
+  render();
+}
+
+function reset() {
+  cur = -1;
+  document.getElementById('explain').textContent = '▶ 버튼을 눌러 find(1) 재귀 호출을 라인별로 따라가보세요.';
+  document.getElementById('stack').innerHTML = '<div style="color:#aaa;font-size:12px;">아직 호출 없음</div>';
+  document.getElementById('sl').textContent = '0 / ' + steps.length;
+  for (let i=1;i<=6;i++) document.getElementById('l'+i).className='code-line';
+  for (let i=1;i<=4;i++) {
+    const el=document.getElementById('p'+i);
+    el.className = i===4?'cell cr':'cell cn';
+    el.textContent=[2,3,4,4][i-1];
+  }
+}
+
+function render() {
+  const s = steps[cur];
+  document.getElementById('sl').textContent = (cur+1) + ' / ' + steps.length;
+  document.getElementById('explain').textContent = s.explain;
+
+  // highlight code lines
+  for (let i=1;i<=6;i++) {
+    document.getElementById('l'+i).className = 'code-line' + (i===s.line?' highlight':'');
+  }
+
+  // update parent cells
+  for (let i=1;i<=4;i++) {
+    const el=document.getElementById('p'+i);
+    el.textContent=s.parent[i-1];
+    if (s.changed&&s.changed.includes(i)) el.className='cell cc';
+    else if (s.active&&s.active.includes(i)) el.className='cell ca';
+    else if (s.parent[i-1]===4&&i===4) el.className='cell cr';
+    else el.className='cell cn';
+  }
+
+  // render stack
+  const stackEl=document.getElementById('stack');
+  stackEl.innerHTML='';
+  const rev=[...s.stack].reverse();
+  rev.forEach(f=>{
+    const d=document.createElement('div');
+    d.className='frame'+(f.ret?' ret':'')+(f.ln==='완료'?' dim':'');
+    d.innerHTML=`<div class="frame-fn">${f.fn}</div><div class="frame-line">${f.ln}</div>${f.rv?`<div class="frame-rv">${f.rv}</div>`:''}`;
+    stackEl.appendChild(d);
+  });
+}
+</script>
+</body>
+</html>
