@@ -1,4 +1,4 @@
-package day16.네트워크최소비용;
+package day15.네트워크최소비용;
 
 import java.io.BufferedReader;
 import java.io.IOException;

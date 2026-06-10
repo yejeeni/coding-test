@@ -1,4 +1,4 @@
-package day17.팀나누기;
+package day16.팀나누기;
 
 import java.io.BufferedReader;
 import java.io.IOException;

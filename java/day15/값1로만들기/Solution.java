@@ -1,4 +1,4 @@
-package day16.값1로만들기;
+package day15.값1로만들기;
 
 import java.io.BufferedReader;
 import java.io.IOException;

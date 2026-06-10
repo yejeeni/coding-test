@@ -1,4 +1,4 @@
-package day16.비상탈출;
+package day15.비상탈출;
 
 import java.io.BufferedReader;
 import java.io.IOException;

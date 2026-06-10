@@ -1,4 +1,4 @@
-package day17.가장긴증가하는부분수열;
+package day16.가장긴증가하는부분수열;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package day16.계단오르기;
+package day15.계단오르기;
 
 import java.io.BufferedReader;
 import java.io.IOException;

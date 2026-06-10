@@ -1,4 +1,4 @@
-package day17.격자최대합;
+package day16.격자최대합;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package day17.LCS길이;
+package day16.LCS길이;
 
 import java.io.BufferedReader;
 import java.io.IOException;
